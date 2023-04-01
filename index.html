@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Throttling Example</title>
+  </head>
+  <body>
+    <input type="text" placeholder="Throttling" id="searchInput" oninput="throttle(search, 10000)">
+    <input type="search" placeholder="debounce" oninput="deb(text, 10000)">
+    <a href="./practice.html">practice page</a>
+  </body>
+  <script>
+    let timeoutId;
+
+    function throttle(fn, delay) {
+        console.log("thro",new Date())
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          fn();
+          timeoutId = null;
+        }, delay);
+      }
+    }
+
+    function search() {
+        console.log("search tro",new Date())
+      const searchTerm = document.getElementById('searchInput').value;
+      console.log(`Searching for ${searchTerm}`);
+    }
+    let id;
+    function deb(fun, delay){
+        console.log("deb",new Date())
+        if(id){
+            clearInterval(id)
+        }
+        id = setTimeout(()=>{
+            fun()
+        }, delay)
+    }
+    // clearInterval should always inside the function if its outside it wont executed;
+    function text(){
+        console.log("text",new Date())
+    }
+  </script>
+</html>

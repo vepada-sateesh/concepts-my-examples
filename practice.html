@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="deb" placeholder="debounce" oninput="deb(apicall,10000)" />
+    <input type="text" id="thr" placeholder="Throttling" oninput="throttle(apicall,10000)" />
+    <h3 id="debres">debounce res</h3>
+    <h3 id="thrres">throttle res</h3>
+  </body>
+</html>
+<script>
+  let id;
+  function deb(fun, delay) {
+    if (id) {
+      clearTimeout(id);
+    }
+    id = setTimeout(() => {
+      fun();
+    }, delay);
+  }
+  let timerId;
+  function throttle(fun, delay) {
+    if(!timerId){
+        timerId = setTimeout(()=>{
+            fun()
+            timerId = null;
+        },delay)
+    }
+  }
+  function apicall() {
+    console.log(new Date());
+    document.getElementById("debres").innerText = document.getElementById("deb").value;
+    document.getElementById("thrres").innerText = document.getElementById("thr").value;
+  }
+</script>
